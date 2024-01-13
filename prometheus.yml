@@ -1,0 +1,36 @@
+# prometheus config file yaml backup
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+
+scrape_configs:
+  - job_name: "arm-selector"
+    static_configs:
+      - targets: ["host.docker.internal:8090"]
+
+  - job_name: "model-trainer"
+    scrape_interval: 120s
+
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
+
+  - job_name: "reward-predictor"
+    static_configs:
+      - targets: [ "host.docker.internal:8092" ]
+
+  - job_name: "rewards-service"
+    static_configs:
+      - targets: [ "host.docker.internal:8093" ]
+
+  - job_name: "experiment-params"
+    static_configs:
+      - targets: [ "host.docker.internal:8091" ]
