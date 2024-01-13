@@ -14,23 +14,28 @@ rule_files:
 
 scrape_configs:
   - job_name: "arm-selector"
+    scheme: https
     static_configs:
-      - targets: ["host.docker.internal:8090"]
+      - targets: ["arm-selector.onrender.com"]
 
   - job_name: "model-trainer"
+    scheme: https
     scrape_interval: 120s
 
     static_configs:
-      - targets: ["host.docker.internal:8000"]
+      - targets: ["model-trainer.onrender.com"]
 
   - job_name: "reward-predictor"
+    scheme: https
     static_configs:
-      - targets: [ "host.docker.internal:8092" ]
+      - targets: [ "reward-predictor.onrender.com" ]
 
   - job_name: "rewards-service"
+    scheme: https
     static_configs:
-      - targets: [ "host.docker.internal:8093" ]
+      - targets: [ "reward-service.onrender.com" ]
 
   - job_name: "experiment-params"
+    scheme: https
     static_configs:
-      - targets: [ "host.docker.internal:8091" ]
+      - targets: [ "experiments-params.onrender.com" ]
